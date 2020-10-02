@@ -1,0 +1,86 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block myblock %}
+
+<div class='container-fluid'>
+    <div class="row mx-auto text-center" style="background-color: aquamarine;">
+        <h1>Django crud Project using function bassed views</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4 text-center  ">
+    <h3 class="bg-warning">Add And Edit Data</h3>
+    {%if msg %}
+    <h4 class="alert{{cls}}">{{msg}}</h4>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Email</label>
+          <input type="email" name="email" class="form-control" id="inputEmail4">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">Password</label>
+          <input type="password" name="password" class="form-control" id="inputPassword4">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputCity">City</label>
+          <input type="text" name="city" class="form-control" id="inputCity">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputState">State</label>
+          <select id="inputState" name="state" class="form-control">
+            <option selected>Choose...</option>
+            <option>...</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputZip">Zip</label>
+          <input type="text" name="zip" class="form-control" id="inputZip">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+        </div>
+        <div class="col-md-8 ">
+            <table class="table table-bordered table-dark">
+              <thead>
+                <tr>
+                  <th scope="col">index</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                  <th scope="col">Handle</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for i in data %}
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>{{i.email}}</td>
+                  <td>{{i.password}}</td>
+                  <td>{{i.city}}</td>
+                  <td>{{i.state}}</td>
+                  <td>{{i.zips}}</td>
+
+                  <td>
+                      <a href="{% url 'delete' %}?uid={{i.id}}" class="btn btn-danger">
+                          <i class="fa fa-trash"></i>
+                      </a>
+                      <a href="{% url 'update'% }?uid={{i.id}}" class="btn btn-warning">
+                          <i class="fa fa-edit"></i>
+                      </a>
+                  </td>
+
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
